@@ -5,8 +5,12 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var cors = require("cors");
 
+require("dotenv").config();
+
 const mongoose = require("mongoose");
-const mongoString = "mongodb://localhost:49153/disney-movies";
+const mongoString = process.env.MONGODB_URL;
+
+console.log(mongoString);
 
 mongoose.connect(mongoString);
 const database = mongoose.connection;
