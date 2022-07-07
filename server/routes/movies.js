@@ -28,12 +28,13 @@ router.get("/", async (req, res, next) => {
     const total = await Movie.count(findQuery);
     const movies = await Movie.find(findQuery)
       .sort([sortQuery])
-      .skip(page - 1)
-      .limit(limit)
+      .skip((Number(page) - 1) * Number(limit))
+      .limit(Number(limit))
       .exec();
-    res
-      .status(200)
-      .json({ data: movies, meta: { total, page, limit, sortBy, orderBy } });
+    res.status(200).json({
+      data: movies,
+      meta: { total, page, limit, sortBy, orderBy, year, search },
+    });
   } catch (err) {
     res.status(500).json("Internal Server Error");
   }
