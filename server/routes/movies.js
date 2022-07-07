@@ -7,9 +7,10 @@ const {
   DEFAULT_SORT_BY_ORDER_BY,
 } = require("../constant/defaultValues");
 const Movie = require("../models/Movie");
+const auth = require("../middleware/auth");
 
 /* GET movies listing. */
-router.get("/", async (req, res, next) => {
+router.get("/", auth, async (req, res, next) => {
   try {
     const {
       page = DEFAULT_PAGINATION.PAGE,
