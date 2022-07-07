@@ -13,6 +13,10 @@ Disney Movies
 cd client 
 npm install
 ```
+### Set up environment Variables 
+```
+SERVER_URL
+```
 ### Start Client 
 ```
 npm run start
