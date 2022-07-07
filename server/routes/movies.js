@@ -17,11 +17,11 @@ router.get("/", async (req, res, next) => {
       sortBy = DEFAULT_SORT_BY_ORDER_BY.MOVIES.SORY_BY,
       orderBy = DEFAULT_SORT_BY_ORDER_BY.MOVIES.ORDER_BY,
       // filter
-      Year = "",
+      year = "",
       // search
       search = "",
     } = req.query || {};
-    const filterQuery = Year ? { Year } : {};
+    const filterQuery = year ? { Year: year } : {};
     const serachQuery = search ? { $text: { $search: search } } : {};
     const findQuery = { ...filterQuery, ...serachQuery };
     const sortQuery = [sortBy, orderBy === "desc" ? -1 : 1];
