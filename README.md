@@ -14,9 +14,10 @@ cd client
 npm install
 ```
 ### Set up environment Variables 
+- add `.env` inside `client` directory 
+- Ref `.env-example` -> `.env` 
 ```
-SERVER_URL
-```
+REACT_APP_SERVER_URL=http://localhost:3001/api/v1
 ### Start Client 
 ```
 npm run start
@@ -31,7 +32,7 @@ cd server
 npm install 
 ```
 ### Set up environment Variables 
-- add `.env` inside server directory 
+- add `.env` inside `server` directory 
 - Ref `.env-example` -> `.env` 
 ```
 PORT=3001
