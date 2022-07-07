@@ -27,12 +27,15 @@ Open in Browser http://localhost:3000
 
 ### Navigate and Dependancy Install 
 ```
-cd client 
+cd server 
 npm install 
 ```
 ### Set up environment Variables 
+- add `.env` inside server directory 
+- Ref `.env-example` -> `.env` 
 ```
-MONGODB_URL
+PORT=3001
+MONGODB_URL=mongodb://localhost:27017/disney-movies
 ```
 ### Start Server 
 ```
