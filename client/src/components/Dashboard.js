@@ -2,6 +2,7 @@ import MovieList from "./MovieList";
 import { useEffect, useState } from "react";
 import Constants from "../constant/Constants";
 import axios from "axios";
+import { Container, Row, Col, Button } from "react-bootstrap";
 
 const Dashboard = () => {
   const [movies, setMovies] = useState([]);
@@ -71,35 +72,46 @@ const Dashboard = () => {
   };
 
   const sortbyOrderByHandler = (sortBy, orderBy) => {
-    console.log(sortBy, orderBy);
     setSortBy(sortBy);
     setOrderBy(orderBy);
     getMovies({ orderByValue: orderBy, sortByValue: sortBy });
   };
 
   return (
-    <>
-      <div>
-        <div>
+    <Container>
+      <Row>
+        <Col className="text-center">
+          <h2>Disney Movies</h2>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
           <input
             value={search}
             placeholder="Search "
             onChange={searchChangeHandler}
           />
-          <button onClick={searchHandler}>Search</button>
-        </div>
-        <select value={filter} onChange={filterChangeHandler}>
-          <option value="All">All</option>
-          {yearArray.map((value) => (
-            <option key={value} value={value}>
-              {value}
-            </option>
-          ))}
-        </select>
-      </div>
+          <Button variant="info" onClick={searchHandler}>
+            Search
+          </Button>
+        </Col>
+        <Col>
+          <span> Select Year </span>
+          <select value={filter} onChange={filterChangeHandler}>
+            <option value="All">All</option>
+            {yearArray.map((value) => (
+              <option key={value} value={value}>
+                {value}
+              </option>
+            ))}
+          </select>
+        </Col>
+      </Row>
       <MovieList
         movies={movies}
         onSortByOrderBy={sortbyOrderByHandler}
+        sortBy={sortBy}
+        orderBy={orderBy}
       ></MovieList>
       <div>
         page :{" "}
@@ -120,7 +132,7 @@ const Dashboard = () => {
         </select>
       </div>
       <div>total : {total}</div>
-    </>
+    </Container>
   );
 };
 
