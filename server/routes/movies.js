@@ -18,9 +18,12 @@ router.get("/", async (req, res, next) => {
       orderBy = DEFAULT_SORT_BY_ORDER_BY.MOVIES.ORDER_BY,
       // filter
       Year = "",
+      // search
+      search = "",
     } = req.query || {};
     const filterQuery = Year ? { Year } : {};
-    const findQuery = { ...filterQuery };
+    const serachQuery = search ? { $text: { $search: search } } : {};
+    const findQuery = { ...filterQuery, ...serachQuery };
     const sortQuery = [sortBy, orderBy === "desc" ? -1 : 1];
     const total = await Movie.count(findQuery);
     const movies = await Movie.find(findQuery)
