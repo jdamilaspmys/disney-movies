@@ -1,6 +1,5 @@
 import MovieList from "./MovieList";
 import { useEffect, useState } from "react";
-import { SAMPLE_MOVIES } from "../constant/dummy";
 import Constants from "../constant/Constants";
 import axios from "axios";
 
@@ -39,7 +38,7 @@ const Dashboard = () => {
     }`;
 
     axios
-      .get(`${Constants.SERVER_BASE_URL}/movies?${finalQuery}`)
+      .get(`${Constants.REACT_APP_SERVER_URL}/movies?${finalQuery}`)
       .then((res) => {
         setMovies(res.data.data);
         setTotal(res.data.meta.total);
