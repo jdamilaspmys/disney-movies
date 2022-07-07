@@ -6,18 +6,30 @@ const {
   DEFAULT_PAGINATION,
   DEFAULT_SORT_BY_ORDER_BY,
 } = require("../constant/defaultValues");
+const Movie = require("../models/Movie");
 
 /* GET movies listing. */
-router.get("/", function (req, res, next) {
+router.get("/", async (req, res, next) => {
   const {
     page = DEFAULT_PAGINATION.PAGE,
     limit = DEFAULT_PAGINATION.LIMIT,
     sortBy = DEFAULT_SORT_BY_ORDER_BY.MOVIES.SORY_BY,
     orderBy = DEFAULT_SORT_BY_ORDER_BY.MOVIES.ORDER_BY,
+    // filter
+    Year = "",
   } = req.query || {};
+  const filterQuery = Year ? { Year } : {};
+  const findQuery = { ...filterQuery };
+  const sortQuery = [sortBy, orderBy === "desc" ? -1 : 1];
+  const total = await Movie.count(findQuery);
+  const movies = await Movie.find(findQuery)
+    .sort([sortQuery])
+    .skip(page - 1)
+    .limit(limit)
+    .exec();
   res
     .status(200)
-    .json({ data: SAMPLE_MOVIES, meta: { page, limit, sortBy, orderBy } });
+    .json({ data: movies, meta: { total, page, limit, sortBy, orderBy } });
 });
 
 /* GET movie by Id */
@@ -30,6 +42,19 @@ router.get("/:id", function (req, res, next) {
   } else {
     res.status(404).json("Resource Not Found");
   }
+});
+
+// TODO : Only for Feed DATA
+router.get("/reset/db", async (req, res, next) => {
+  await Movie.remove({});
+  SAMPLE_MOVIES.forEach(async (movie) => {
+    const newMovie = new Movie({
+      ...movie,
+      Year: movie["Production Year"],
+    });
+    await newMovie.save();
+  });
+  res.status(200).json();
 });
 
 module.exports = router;
