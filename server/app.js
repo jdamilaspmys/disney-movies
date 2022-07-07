@@ -10,8 +10,6 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const mongoString = process.env.MONGODB_URL;
 
-console.log(mongoString);
-
 mongoose.connect(mongoString);
 const database = mongoose.connection;
 
@@ -41,7 +39,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
+app.use("/api/v1/users", usersRouter);
 app.use("/api/v1/movies", moviesRouter);
 
 // catch 404 and forward to error handler
