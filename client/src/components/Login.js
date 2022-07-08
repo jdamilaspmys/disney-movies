@@ -26,7 +26,7 @@ const Login = () => {
       });
   };
 
-  const hadnlerRegister = (e) => {
+  const handlerRegister = (e) => {
     navigate("/register");
   };
 
@@ -40,7 +40,7 @@ const Login = () => {
                 <h3 className="text-center">Login</h3>
                 <div className="text-center" style={{ marginBottm: "10px" }}>
                   Not registered yet?{" "}
-                  <span className="link-primary" onClick={hadnlerRegister}>
+                  <span className="link-primary" onClick={handlerRegister}>
                     Register
                   </span>
                 </div>
