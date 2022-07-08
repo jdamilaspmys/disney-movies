@@ -3,7 +3,34 @@ import { useEffect, useState } from "react";
 import Constants from "../constant/Constants";
 import axios from "axios";
 import Logout from "./Logout";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Button,
+  Card,
+  Form,
+  FloatingLabel,
+  FormControl,
+  InputGroup,
+} from "react-bootstrap";
+import styles from "./Dashboard.module.css";
+import DashboardPagination from "./DashboardPagination";
+
+const SearchIcon = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      fill="currentColor"
+      className="bi bi-search"
+      viewBox="0 0 16 16"
+    >
+      <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+    </svg>
+  );
+};
 
 const Dashboard = () => {
   const [movies, setMovies] = useState([]);
@@ -71,9 +98,9 @@ const Dashboard = () => {
     getMovies({ limitValue: event.target.value });
   };
 
-  const pageChangeHandler = (event) => {
-    setPage(event.target.value);
-    getMovies({ pageValue: event.target.value });
+  const pageChangeHandler = (currentPage) => {
+    setPage(currentPage);
+    getMovies({ pageValue: currentPage });
   };
 
   const sortbyOrderByHandler = (sortBy, orderBy) => {
@@ -84,62 +111,93 @@ const Dashboard = () => {
 
   return (
     <Container>
-      <Row>
-        <Logout></Logout>
-      </Row>
+      <Row className={styles.top}></Row>
       <Row>
         <Col className="text-center">
-          <h2>Disney Movies</h2>
+          <h1>Disney Movies</h1>
+          <Logout></Logout>
+        </Col>
+      </Row>
+      <Row className={styles.action_row}>
+        <Col></Col>
+        <Col>
+          <Card>
+            <Card.Body>
+              <InputGroup>
+                <FormControl
+                  value={search}
+                  placeholder="Search ..."
+                  onChange={searchChangeHandler}
+                  required
+                />
+                <Button variant="info" onClick={searchHandler}>
+                  <SearchIcon />
+                </Button>
+              </InputGroup>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col>
+          <Card>
+            <Card.Body>
+              <FloatingLabel
+                controlId="floatingSelectGrid"
+                label="Selected Year"
+              >
+                <Form.Select value={filter} onChange={filterChangeHandler}>
+                  <option value="All">All</option>
+                  {yearArray.map((value) => (
+                    <option key={value} value={value}>
+                      {value}
+                    </option>
+                  ))}
+                </Form.Select>
+              </FloatingLabel>
+            </Card.Body>
+          </Card>
         </Col>
       </Row>
       <Row>
+        <Card>
+          <Card.Body>
+            <MovieList
+              movies={movies}
+              onSortByOrderBy={sortbyOrderByHandler}
+              sortBy={sortBy}
+              orderBy={orderBy}
+            ></MovieList>
+          </Card.Body>
+        </Card>
+      </Row>
+      <Row className={styles.footer}>
         <Col>
-          <input
-            value={search}
-            placeholder="Search "
-            onChange={searchChangeHandler}
-          />
-          <Button variant="info" onClick={searchHandler}>
-            Search
-          </Button>
+          <Card>
+            <Card.Body>
+              <FloatingLabel controlId="floatingSelectGrid" label="Page Size">
+                <Form.Select value={limit} onChange={limitChangeHandler}>
+                  {pageLimitArray.map((value) => (
+                    <option key={value} value={value}>
+                      {value}
+                    </option>
+                  ))}
+                </Form.Select>
+              </FloatingLabel>
+            </Card.Body>
+          </Card>
         </Col>
-        <Col>
-          <span> Select Year </span>
-          <select value={filter} onChange={filterChangeHandler}>
-            <option value="All">All</option>
-            {yearArray.map((value) => (
-              <option key={value} value={value}>
-                {value}
-              </option>
-            ))}
-          </select>
+        <Col className="text-center">
+          <Card>
+            <Card.Body>
+              <DashboardPagination
+                onPageChangeHandler={pageChangeHandler}
+                total={total}
+                page={page}
+                limit={limit}
+              />
+            </Card.Body>
+          </Card>
         </Col>
       </Row>
-      <MovieList
-        movies={movies}
-        onSortByOrderBy={sortbyOrderByHandler}
-        sortBy={sortBy}
-        orderBy={orderBy}
-      ></MovieList>
-      <div>
-        page :{" "}
-        <select value={page} onChange={pageChangeHandler}>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-        </select>
-      </div>
-      <div>
-        size :{" "}
-        <select value={limit} onChange={limitChangeHandler}>
-          {pageLimitArray.map((value) => (
-            <option key={value} value={value}>
-              {value}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div>total : {total}</div>
     </Container>
   );
 };

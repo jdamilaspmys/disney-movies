@@ -69,95 +69,90 @@ const tranc = (str, limit = 10) => {
 
 const MovieList = (props) => {
   return (
-    <Container>
-      <Row>
-        <Table striped bordered>
-          <thead>
-            <tr>
-              <th>
-                Title
-                <span onClick={() => props.onSortByOrderBy("Title", "asc")}>
-                  {props.sortBy === "Title" && props.orderBy === "asc" ? (
-                    <UpFillIcon />
-                  ) : (
-                    <UpIcon />
-                  )}
-                </span>
-                <span onClick={() => props.onSortByOrderBy("Title", "desc")}>
-                  {props.sortBy === "Title" && props.orderBy === "desc" ? (
-                    <DownFillIcon />
-                  ) : (
-                    <DownIcon />
-                  )}
-                </span>
-              </th>
-              <th>
-                Synopsis
-                <span onClick={() => props.onSortByOrderBy("Synopsis", "asc")}>
-                  {props.sortBy === "Synopsis" && props.orderBy === "asc" ? (
-                    <UpFillIcon />
-                  ) : (
-                    <UpIcon />
-                  )}
-                </span>
-                <span onClick={() => props.onSortByOrderBy("Synopsis", "desc")}>
-                  {props.sortBy === "Synopsis" && props.orderBy === "desc" ? (
-                    <DownFillIcon />
-                  ) : (
-                    <DownIcon />
-                  )}
-                </span>
-              </th>
-              <th>
-                Genre
-                <span onClick={() => props.onSortByOrderBy("Genre", "asc")}>
-                  {props.sortBy === "Genre" && props.orderBy === "asc" ? (
-                    <UpFillIcon />
-                  ) : (
-                    <UpIcon />
-                  )}
-                </span>
-                <span onClick={() => props.onSortByOrderBy("Genre", "desc")}>
-                  {props.sortBy === "Genre" && props.orderBy === "desc" ? (
-                    <DownFillIcon />
-                  ) : (
-                    <DownIcon />
-                  )}
-                </span>
-              </th>
-              <th>
-                Year
-                <span onClick={() => props.onSortByOrderBy("Year", "asc")}>
-                  {props.sortBy === "Year" && props.orderBy === "asc" ? (
-                    <UpFillIcon />
-                  ) : (
-                    <UpIcon />
-                  )}
-                </span>
-                <span onClick={() => props.onSortByOrderBy("Year", "desc")}>
-                  {props.sortBy === "Year" && props.orderBy === "desc" ? (
-                    <DownFillIcon />
-                  ) : (
-                    <DownIcon />
-                  )}
-                </span>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {props.movies.map((movie) => (
-              <tr key={movie._id}>
-                <td>{movie.Title}</td>
-                <td>{tranc(movie?.Synopsis, 15)}</td>
-                <td>{movie.Genre}</td>
-                <td>{movie.Year}</td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-        <div></div>
-      </Row>
-    </Container>
+    <Table striped bordered>
+      <thead>
+        <tr>
+          <th>
+            Title
+            <span onClick={() => props.onSortByOrderBy("Title", "asc")}>
+              {props.sortBy === "Title" && props.orderBy === "asc" ? (
+                <UpFillIcon />
+              ) : (
+                <UpIcon />
+              )}
+            </span>
+            <span onClick={() => props.onSortByOrderBy("Title", "desc")}>
+              {props.sortBy === "Title" && props.orderBy === "desc" ? (
+                <DownFillIcon />
+              ) : (
+                <DownIcon />
+              )}
+            </span>
+          </th>
+          <th>
+            Synopsis
+            <span onClick={() => props.onSortByOrderBy("Synopsis", "asc")}>
+              {props.sortBy === "Synopsis" && props.orderBy === "asc" ? (
+                <UpFillIcon />
+              ) : (
+                <UpIcon />
+              )}
+            </span>
+            <span onClick={() => props.onSortByOrderBy("Synopsis", "desc")}>
+              {props.sortBy === "Synopsis" && props.orderBy === "desc" ? (
+                <DownFillIcon />
+              ) : (
+                <DownIcon />
+              )}
+            </span>
+          </th>
+          <th>
+            Genre
+            <span onClick={() => props.onSortByOrderBy("Genre", "asc")}>
+              {props.sortBy === "Genre" && props.orderBy === "asc" ? (
+                <UpFillIcon />
+              ) : (
+                <UpIcon />
+              )}
+            </span>
+            <span onClick={() => props.onSortByOrderBy("Genre", "desc")}>
+              {props.sortBy === "Genre" && props.orderBy === "desc" ? (
+                <DownFillIcon />
+              ) : (
+                <DownIcon />
+              )}
+            </span>
+          </th>
+          <th>
+            Year
+            <span onClick={() => props.onSortByOrderBy("Year", "asc")}>
+              {props.sortBy === "Year" && props.orderBy === "asc" ? (
+                <UpFillIcon />
+              ) : (
+                <UpIcon />
+              )}
+            </span>
+            <span onClick={() => props.onSortByOrderBy("Year", "desc")}>
+              {props.sortBy === "Year" && props.orderBy === "desc" ? (
+                <DownFillIcon />
+              ) : (
+                <DownIcon />
+              )}
+            </span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {props.movies.map((movie) => (
+          <tr key={movie._id}>
+            <td>{movie.Title}</td>
+            <td>{tranc(movie?.Synopsis, 15)}</td>
+            <td>{movie.Genre}</td>
+            <td>{movie.Year}</td>
+          </tr>
+        ))}
+      </tbody>
+    </Table>
   );
 };
 

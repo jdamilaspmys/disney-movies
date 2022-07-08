@@ -1,4 +1,6 @@
+import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import styles from "./Logout.module.css";
 const Logout = () => {
   const navigate = useNavigate();
   const logoutHandler = (event) => {
@@ -6,8 +8,16 @@ const Logout = () => {
     localStorage.setItem("token", "");
     navigate("/login");
   };
-
-  return <button onClick={logoutHandler}> Logout</button>;
+  return (
+    <Button
+      className={styles.logout}
+      variant="secondary"
+      onClick={logoutHandler}
+    >
+      {" "}
+      Logout
+    </Button>
+  );
 };
 
 export default Logout;
