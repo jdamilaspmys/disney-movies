@@ -43,10 +43,10 @@ router.get("/", auth, async (req, res, next) => {
 
 /* GET movie by Id */
 
-router.get("/:id", auth, function (req, res, next) {
+router.get("/:id", auth, async (req, res, next) => {
   try {
     const id = req.params.id;
-    const movie = SAMPLE_MOVIES.find((movie) => movie.id === id);
+    const movie = await Movie.findById(id);
     if (movie) {
       res.status(200).json(movie);
     } else {
@@ -55,19 +55,6 @@ router.get("/:id", auth, function (req, res, next) {
   } catch (error) {
     res.status(500).json("Internal Server Error");
   }
-});
-
-// TODO : Only for Feed DATA
-router.get("/reset/db", async (req, res, next) => {
-  await Movie.remove({});
-  SAMPLE_MOVIES.forEach(async (movie) => {
-    const newMovie = new Movie({
-      ...movie,
-      Year: movie["Production Year"],
-    });
-    await newMovie.save();
-  });
-  res.status(200).json();
 });
 
 module.exports = router;
