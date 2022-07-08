@@ -39,7 +39,11 @@ const Dashboard = () => {
     }`;
 
     axios
-      .get(`${Constants.REACT_APP_SERVER_URL}/movies?${finalQuery}`)
+      .get(`${Constants.REACT_APP_SERVER_URL}/movies?${finalQuery}`, {
+        headers: {
+          "x-access-token": localStorage.getItem("token"),
+        },
+      })
       .then((res) => {
         setMovies(res.data.data);
         setTotal(res.data.meta.total);
