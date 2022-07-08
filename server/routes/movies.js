@@ -43,7 +43,7 @@ router.get("/", auth, async (req, res, next) => {
 
 /* GET movie by Id */
 
-router.get("/:id", function (req, res, next) {
+router.get("/:id", auth, function (req, res, next) {
   try {
     const id = req.params.id;
     const movie = SAMPLE_MOVIES.find((movie) => movie.id === id);

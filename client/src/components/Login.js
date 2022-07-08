@@ -2,16 +2,22 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Constants from "../constant/Constants";
-import { Card, Form, Button } from "react-bootstrap";
+import { Card, Form, Button, Alert } from "react-bootstrap";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isSubmit, setIsSubmit] = useState(false);
+  const [isError, setIsError] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
 
   const handlerSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmit(true);
+    setIsError("");
+    setErrorMessage("");
     axios
       .post(`${Constants.REACT_APP_SERVER_URL}/users/login`, {
         email,
@@ -20,9 +26,16 @@ const Login = () => {
       .then((res) => {
         localStorage.setItem("token", res.data.token);
         navigate("/dashboard");
+        setIsSubmit(false);
       })
       .catch((err) => {
-        console.log(err);
+        setIsSubmit(false);
+        setIsError(true);
+        if (err?.response?.status === 400) {
+          setErrorMessage("INVALID_CREDENTIAL");
+        } else {
+          setErrorMessage("NETWORK_ERROR");
+        }
       });
   };
 
@@ -66,11 +79,19 @@ const Login = () => {
                     ></Form.Control>
                   </Form.Group>
                   <div className="d-grid">
-                    <Button variant="primary" type="submit">
+                    <Button variant="primary" type="submit" disabled={isSubmit}>
                       Submit
                     </Button>
                   </div>
                 </Form>
+                <div style={{ marginTop: "15px" }} className="text-center">
+                  {isError && errorMessage === "INVALID_CREDENTIAL" && (
+                    <Alert variant={"danger"}>Invalid Credential</Alert>
+                  )}
+                  {isError && errorMessage === "NETWORK_ERROR" && (
+                    <Alert variant={"warning"}>Network Error :(</Alert>
+                  )}
+                </div>
               </Card.Body>
             </Card>
           </div>
