@@ -2,10 +2,7 @@ import MovieList from "./MovieList";
 import { useEffect, useState } from "react";
 import Constants from "../constant/Constants";
 import axios from "axios";
-<<<<<<< HEAD
 import Logout from "./Logout";
-=======
->>>>>>> 903368136664e8d10eff8fa7009861fbb61c680d
 import { Container, Row, Col, Button } from "react-bootstrap";
 
 const Dashboard = () => {
