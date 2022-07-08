@@ -31,13 +31,11 @@ const Login = () => {
       .catch((err) => {
         setIsSubmit(false);
         setIsError(true);
-        console.log(err);
         if (err?.response?.status === 400) {
           setErrorMessage("INVALID_CREDENTIAL");
         } else {
           setErrorMessage("NETWORK_ERROR");
         }
-        console.log(isError, errorMessage);
       });
   };
 
