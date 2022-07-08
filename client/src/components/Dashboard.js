@@ -2,6 +2,7 @@ import MovieList from "./MovieList";
 import { useEffect, useState } from "react";
 import Constants from "../constant/Constants";
 import axios from "axios";
+import Logout from "./Logout";
 
 const Dashboard = () => {
   const [movies, setMovies] = useState([]);
@@ -79,6 +80,9 @@ const Dashboard = () => {
 
   return (
     <>
+      <div>
+        <Logout></Logout>
+      </div>
       <div>
         <div>
           <input
