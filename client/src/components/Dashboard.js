@@ -2,6 +2,7 @@ import MovieList from "./MovieList";
 import { useEffect, useState } from "react";
 import Constants from "../constant/Constants";
 import axios from "axios";
+import Logout from "./Logout";
 
 const Dashboard = () => {
   const [movies, setMovies] = useState([]);
@@ -38,7 +39,11 @@ const Dashboard = () => {
     }`;
 
     axios
-      .get(`${Constants.REACT_APP_SERVER_URL}/movies?${finalQuery}`)
+      .get(`${Constants.REACT_APP_SERVER_URL}/movies?${finalQuery}`, {
+        headers: {
+          "x-access-token": localStorage.getItem("token"),
+        },
+      })
       .then((res) => {
         setMovies(res.data.data);
         setTotal(res.data.meta.total);
@@ -79,6 +84,9 @@ const Dashboard = () => {
 
   return (
     <>
+      <div>
+        <Logout></Logout>
+      </div>
       <div>
         <div>
           <input
