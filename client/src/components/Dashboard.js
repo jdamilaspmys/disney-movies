@@ -119,7 +119,7 @@ const Dashboard = () => {
         </Col>
       </Row>
       <Row className={styles.action_row}>
-        <Col></Col>
+        <Col sm={1} md={3} lg={3} xl={4}></Col>
         <Col>
           <Card>
             <Card.Body>
@@ -137,7 +137,7 @@ const Dashboard = () => {
             </Card.Body>
           </Card>
         </Col>
-        <Col>
+        <Col sm={5} md={4} lg={2} xl={2}>
           <Card>
             <Card.Body>
               <FloatingLabel
@@ -170,7 +170,7 @@ const Dashboard = () => {
         </Card>
       </Row>
       <Row className={styles.footer}>
-        <Col>
+        <Col sm={6} md={3} lg={4} xl={2}>
           <Card>
             <Card.Body>
               <FloatingLabel controlId="floatingSelectGrid" label="Page Size">
