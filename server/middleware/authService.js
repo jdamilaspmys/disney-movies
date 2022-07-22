@@ -9,7 +9,8 @@ const authService = (req, res, next) => {
       .json({ message: "A token is required for authentication" });
   }
   try {
-    const decoded = tokenService.verifyToken(token);
+    tokenService.verifyToken(token);
+    const decoded = tokenService.decoded(token);
     req.user = decoded;
   } catch (err) {
     return res.status(401).json({ message: "Invalid Token" });

@@ -1,4 +1,5 @@
 var jwt = require("jsonwebtoken");
+const { token } = require("morgan");
 
 const generateToken = (payload = {}, options = {}) => {
   const defaultOptions = {
@@ -14,4 +15,8 @@ const verifyToken = (token) => {
   return jwt.verify(token, process.env.JWT_SECRET);
 };
 
-module.exports = { generateToken, verifyToken };
+const decoded = (token) => {
+  return jwt.decode(token);
+};
+
+module.exports = { generateToken, verifyToken, decoded };

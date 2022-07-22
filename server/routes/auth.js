@@ -5,6 +5,7 @@ const User = require("../models/User");
 const { generateToken } = require("../middleware/tokenService");
 var router = express.Router();
 const { DUMMY_USER } = require("../constant/dummy");
+const authService = require("../middleware/authService");
 
 router.post("/token", (req, res, next) => {
   try {
@@ -22,6 +23,10 @@ router.post("/token", (req, res, next) => {
   } catch (err) {
     res.status(500).json({ err: "internal-server-error" });
   }
+});
+
+router.get("/about", authService, (req, res, next) => {
+  res.status(200).send("Hello World");
 });
 
 module.exports = router;
