@@ -1,14 +1,20 @@
 var jwt = require("jsonwebtoken");
-const { token } = require("morgan");
 
 const generateToken = (payload = {}, options = {}) => {
   const defaultOptions = {
-    expiresIn: "1h",
+    expiresIn: process.env.JWT_TOKEN_EXPIRATION || "1h",
   };
   return jwt.sign({ ...payload }, process.env.JWT_SECRET, {
     ...defaultOptions,
     ...options,
   });
+};
+
+const generateRefreshToken = (payload = {}, options = {}) => {
+  const defaultOptions = {
+    expiresIn: process.env.JWT_TOKEN_EXPIRATION || "1d",
+  };
+  return generateToken(payload, { ...defaultOptions, ...options });
 };
 
 const verifyToken = (token) => {
@@ -19,4 +25,4 @@ const decoded = (token, options = {}) => {
   return jwt.decode(token, options);
 };
 
-module.exports = { generateToken, verifyToken, decoded };
+module.exports = { generateToken, verifyToken, decoded, generateRefreshToken };

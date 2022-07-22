@@ -4,6 +4,7 @@ var jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const {
   generateToken,
+  generateRefreshToken,
   verifyToken,
   decoded,
 } = require("../middleware/tokenService");
@@ -17,8 +18,9 @@ router.post("/token", (req, res, next) => {
     if (!(email === DUMMY_USER.email && password === DUMMY_USER.password)) {
       return res.status(400).json({ err: "invalid-credential" });
     }
-    const accessToken = generateToken({ email });
-    const refreshToken = generateToken({ email }, { expiresIn: "1d" });
+    const payload = { email };
+    const accessToken = generateToken(payload);
+    const refreshToken = generateRefreshToken(payload);
     const result = {
       token: {
         accessToken,
@@ -43,7 +45,8 @@ router.post("/refresh-token", (req, res, next) => {
     }
     verifyToken(refreshToken);
     const decodeToken = decoded(refreshToken, { complete: true });
-    const accessToken = generateToken({ email: decodeToken.payload.email });
+    const payload = { email: decodeToken.payload.email };
+    const accessToken = generateToken(payload);
     const result = {
       token: {
         accessToken,
