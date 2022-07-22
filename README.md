@@ -29,6 +29,9 @@ npm install
 ```
 PORT=3001
 MONGODB_URL=mongodb://localhost:27017/disney-movies
+JWT_SECRET=jwtsecrethere
+JWT_TOKEN_EXPIRATION=1h
+JWT_REPRESH_TOKEN_EXPIRATION=1d
 ```
 ### Seed Movies 
 ```
