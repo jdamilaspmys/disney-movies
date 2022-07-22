@@ -13,10 +13,12 @@ router.post("/token", (req, res, next) => {
     if (!(email === DUMMY_USER.email && password === DUMMY_USER.password)) {
       return res.status(400).json({ err: "invalid-credential" });
     }
-    const accessToken = generateToken({ email: req.body.email }, {});
+    const accessToken = generateToken({ email }, {});
+    const refreshToken = generateToken({ email }, { expiresIn: "1d" });
     const result = {
       token: {
         accessToken,
+        refreshToken,
       },
     };
     res.status(200).json(result);
