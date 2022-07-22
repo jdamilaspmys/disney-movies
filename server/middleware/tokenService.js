@@ -15,8 +15,8 @@ const verifyToken = (token) => {
   return jwt.verify(token, process.env.JWT_SECRET);
 };
 
-const decoded = (token) => {
-  return jwt.decode(token);
+const decoded = (token, options = {}) => {
+  return jwt.decode(token, options);
 };
 
 module.exports = { generateToken, verifyToken, decoded };
