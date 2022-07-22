@@ -81,4 +81,9 @@ const SAMPLE_MOVIES = [
   },
 ];
 
-module.exports = { SAMPLE_MOVIES };
+const DUMMY_USER = {
+  email: "useremail@gmail.com",
+  password: "123456",
+};
+
+module.exports = { SAMPLE_MOVIES, DUMMY_USER };
