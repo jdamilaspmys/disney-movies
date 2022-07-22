@@ -7,7 +7,7 @@ const {
   DEFAULT_SORT_BY_ORDER_BY,
 } = require("../constant/defaultValues");
 const Movie = require("../models/Movie");
-const auth = require("../middleware/auth");
+const auth = require("../middleware/authService");
 
 /* GET movies listing. */
 router.get("/", auth, async (req, res, next) => {
